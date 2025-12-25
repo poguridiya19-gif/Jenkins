@@ -1,4 +1,5 @@
 pipeline {
+    // these are pre-build sections
     agent {
         node {
             label 'AGENT-1'
@@ -6,6 +7,10 @@ pipeline {
     }
     environment {
         COURSE = "Jenkins" 
+    }
+    options{
+        timeout(time:10,unit:'seconds')
+        disableConcurrentBuilds()
     }
     // this is build section
     stages {
@@ -15,6 +20,8 @@ pipeline {
                 sh """
                     echo "Building"
                     echo $COURSE
+                    sleep 10
+                    env
                 """
                }
             }
@@ -49,6 +56,9 @@ pipeline {
         }
         failure{
             echo 'i will run if failure'
+        }
+        aborted{
+            echo 'pipeline is aborted'
         }
     }
 }
