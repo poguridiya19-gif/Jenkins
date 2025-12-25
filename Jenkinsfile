@@ -21,7 +21,6 @@ pipeline {
                     echo "Building"
                     echo $COURSE
                     sleep 10
-                    env
                 """
                }
             }
